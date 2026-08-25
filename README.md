@@ -13,7 +13,8 @@ It matters most for AI agents and MCP: an agent inherits exactly the access its 
 - [Specifications](#specifications)
 - [Related standards](#related-standards)
 - [MCP and AI agents](#mcp-and-ai-agents)
-- [Identity platforms](#identity-platforms)
+- [Issuers](#issuers)
+- [Validators](#validators)
 - [Resource apps and MCP servers](#resource-apps-and-mcp-servers)
 - [Libraries](#libraries)
 - [Sample apps and demos](#sample-apps-and-demos)
@@ -77,21 +78,27 @@ sequenceDiagram
 - [VS Code enterprise-managed MCP authentication](https://code.visualstudio.com/updates/v1_123#_enterprise-managed-mcp-authentication-preview) - EMA support in the VS Code MCP client.
 - [agentgateway Cross-App Access](https://agentgateway.dev/docs/kubernetes/main/security/backend-authn-cross-app-access/) - ID-JAG as a backend authentication method in an agent gateway.
 
-## Identity platforms
+## Issuers
 
-Two different jobs, and most vendors do only one. An **issuer** is the enterprise IdP: it applies admin policy and mints the ID-JAG. A **validator** is the resource app's authorization server: it verifies an ID-JAG minted elsewhere and returns its own access token. Client-side support lives in the MCP and AI agents section.
+Every ID-JAG is minted by one party and redeemed at another, and most vendors implement only one of those sides. An issuer is the enterprise IdP: it applies the admin's access policy and mints the assertion.
 
-- [Okta](https://developer.okta.com/docs/concepts/xaa/) - Issuer. Concept docs and configuration for XAA, the first large-scale deployment.
-- [Descope](https://docs.descope.com/agentic-identity-hub/enterprise-managed-authorization) - Issuer and validator. Mints ID-JAGs for agents you run, and validates a customer IdP's ID-JAG at an MCP server you sell.
-- [Athenz](https://techblog.lycorp.co.jp/ja/20260401a) - Issuer and validator. ID-JAG in the Athenz open-source access-control system, in Japanese.
-- [PingFederate](https://docs.pingidentity.com/pingfederate/13.1/release_notes/pf_release_notes.html#identity-assertion-jwt-authorization-grant-id-jag) - Issuer. Native ID-JAG minting, from the 13.1 release notes.
-- [PingFederate JWT grant mapping](https://docs.pingidentity.com/pingfederate/13.1/administrators_reference_guide/help_idpconnectionconfigtasklet_oauthsamlgrantattributemappingstate.html) - Validator. Mapping an inbound assertion to a local identity.
-- [Keycloak: issuing ID-JAGs](https://github.com/keycloak/keycloak/issues/48818) - Issuer. Upstream tracking issue.
-- [Auth0](https://auth0.com/docs/secure/call-apis-on-users-behalf/xaa) - Validator, in early access. Auth0 is the resource app's authorization server; the enterprise IdP stays external.
-- [Stytch](https://stytch.com/docs/connected-apps/guides/cross-app-access) - Validator. Exchanges an external workforce IdP's ID-JAG for a Stytch Connected Apps access token, with no browser redirect.
-- [Scalekit](https://www.scalekit.com/blog/cross-app-access-agentic-auth-flows) - Validator. Agentic auth flows built on ID-JAG.
-- [Authplane](https://docs.authplane.ai/guides/xaa/) - Validator. Checks the assertion against the IdP's JWKS and mints an MCP token for policy-approved agent, scope, and resource combinations.
-- [Keycloak: accepting ID-JAGs](https://github.com/keycloak/keycloak/issues/43971) - Validator. Upstream tracking issue.
+- [Okta](https://developer.okta.com/docs/concepts/xaa/) - Concept docs and configuration for XAA, the first large-scale deployment.
+- [Descope](https://docs.descope.com/agentic-identity-hub/enterprise-managed-authorization/issue-id-jags) - Mints ID-JAGs so the agents you run can reach third-party MCP servers and APIs, governed by policy.
+- [PingFederate](https://docs.pingidentity.com/pingfederate/13.1/release_notes/pf_release_notes.html#identity-assertion-jwt-authorization-grant-id-jag) - Native ID-JAG minting, from the 13.1 release notes.
+- [Keycloak](https://github.com/keycloak/keycloak/issues/48818) - Upstream tracking issue for issuing ID-JAGs.
+- [Athenz](https://techblog.lycorp.co.jp/ja/20260401a) - ID-JAG in the Athenz open-source access-control system, in Japanese. The same write-up covers its validator side.
+
+## Validators
+
+The other half: a validator is the resource app's authorization server, verifying an assertion minted elsewhere and returning its own access token. Clients, which request the assertion in the first place, are in the MCP and AI agents section.
+
+- [Descope](https://docs.descope.com/agentic-identity-hub/enterprise-managed-authorization/validate-id-jags) - Validates a customer's IdP assertion at the MCP server you sell, so each customer governs access with their own Okta, Entra, or Descope.
+- [Auth0](https://auth0.com/docs/secure/call-apis-on-users-behalf/xaa) - Resource-app side of XAA, in early access. The enterprise IdP stays external.
+- [Stytch](https://stytch.com/docs/connected-apps/guides/cross-app-access) - Exchanges an external workforce IdP's ID-JAG for a Stytch Connected Apps access token, with no browser redirect.
+- [Scalekit](https://www.scalekit.com/blog/cross-app-access-agentic-auth-flows) - Agentic auth flows built on ID-JAG.
+- [Authplane](https://docs.authplane.ai/guides/xaa/) - Checks the assertion against the IdP's JWKS and mints an MCP token for policy-approved agent, scope, and resource combinations.
+- [PingFederate JWT grant mapping](https://docs.pingidentity.com/pingfederate/13.1/administrators_reference_guide/help_idpconnectionconfigtasklet_oauthsamlgrantattributemappingstate.html) - Mapping an inbound assertion to a local identity.
+- [Keycloak](https://github.com/keycloak/keycloak/issues/43971) - Upstream tracking issue for accepting ID-JAGs.
 
 ## Resource apps and MCP servers
 
