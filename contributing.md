@@ -33,6 +33,10 @@ One item per line:
 - The **Resource apps and MCP servers** section is a bare link list with no descriptions, since every entry does the same thing. Keep it alphabetical.
 - Every other section is ordered roughly by usefulness to a newcomer, so put foundational entries near the top.
 
+## Where suggestions come from
+
+A workflow runs every Monday and opens an issue labelled `discovery` with anything new it spots on [oauth.net](https://oauth.net/cross-app-access/), on GitHub, or in the IETF draft. Those are unvetted candidates, not accepted entries. Picking one up and opening a PR for it is a genuinely useful contribution.
+
 ## Pull requests
 
 - One logical change per pull request.

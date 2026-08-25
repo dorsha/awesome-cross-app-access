@@ -1,0 +1,46 @@
+name: Discover
+
+on:
+  schedule:
+    # Mondays at 07:00 UTC, an hour after the link check.
+    - cron: '0 7 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  discover:
+    name: Find new resources
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Collect candidates
+        id: collect
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/discover.mjs > report.md
+
+      - name: Open an issue if anything is new
+        if: hashFiles('report.md') != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ ! -s report.md ]; then
+            echo "Nothing new this week."
+            exit 0
+          fi
+          gh label create discovery \
+            --color 0E8A16 \
+            --description "Candidate entries found by the weekly discovery run" \
+            --force
+          gh issue create \
+            --title "Weekly discovery: $(date -u +%Y-%m-%d)" \
+            --label discovery \
+            --body-file report.md
