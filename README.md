@@ -13,7 +13,7 @@ It matters most for AI agents and MCP: an agent inherits exactly the access its 
 - [Specifications](#specifications)
 - [Related standards](#related-standards)
 - [MCP and AI agents](#mcp-and-ai-agents)
-- [Identity providers](#identity-providers)
+- [Identity platforms](#identity-platforms)
 - [Resource apps and MCP servers](#resource-apps-and-mcp-servers)
 - [Libraries](#libraries)
 - [Sample apps and demos](#sample-apps-and-demos)
@@ -77,17 +77,21 @@ sequenceDiagram
 - [VS Code enterprise-managed MCP authentication](https://code.visualstudio.com/updates/v1_123#_enterprise-managed-mcp-authentication-preview) - EMA support in the VS Code MCP client.
 - [agentgateway Cross-App Access](https://agentgateway.dev/docs/kubernetes/main/security/backend-authn-cross-app-access/) - ID-JAG as a backend authentication method in an agent gateway.
 
-## Identity providers
+## Identity platforms
 
-- [Okta](https://developer.okta.com/docs/concepts/xaa/) - Concept docs and configuration for XAA, the first large-scale deployment.
-- [Descope](https://docs.descope.com/agentic-identity-hub/enterprise-managed-authorization) - Both sides of the exchange: issuing ID-JAGs so your agents can reach third-party APIs, and validating a customer IdP's ID-JAG at your own MCP server.
-- [Auth0](https://auth0.com/docs/secure/call-apis-on-users-behalf/xaa) - XAA for Auth0 tenants, with requesting-app and resource-app guides.
-- [Stytch](https://stytch.com/docs/connected-apps/guides/cross-app-access) - Cross-App Access via Stytch Connected Apps.
-- [PingFederate](https://docs.pingidentity.com/pingfederate/13.1/release_notes/pf_release_notes.html#identity-assertion-jwt-authorization-grant-id-jag) - Native ID-JAG support in PingFederate.
-- [Authplane](https://docs.authplane.ai/guides/xaa/) - XAA implementation guide.
-- [Keycloak: ID-JAG issuance](https://github.com/keycloak/keycloak/issues/43971) - Upstream tracking issue for acting as the identity provider.
-- [Keycloak: ID-JAG redemption](https://github.com/keycloak/keycloak/issues/48818) - Upstream tracking issue for acting as the resource authorization server.
-- [Athenz](https://techblog.lycorp.co.jp/ja/20260401a) - ID-JAG in the Athenz open-source access-control system, in Japanese.
+Two different jobs, and most vendors do only one. An **issuer** is the enterprise IdP: it applies admin policy and mints the ID-JAG. A **validator** is the resource app's authorization server: it verifies an ID-JAG minted elsewhere and returns its own access token. Client-side support lives in the MCP and AI agents section.
+
+- [Okta](https://developer.okta.com/docs/concepts/xaa/) - Issuer. Concept docs and configuration for XAA, the first large-scale deployment.
+- [Descope](https://docs.descope.com/agentic-identity-hub/enterprise-managed-authorization) - Issuer and validator. Mints ID-JAGs for agents you run, and validates a customer IdP's ID-JAG at an MCP server you sell.
+- [Athenz](https://techblog.lycorp.co.jp/ja/20260401a) - Issuer and validator. ID-JAG in the Athenz open-source access-control system, in Japanese.
+- [PingFederate](https://docs.pingidentity.com/pingfederate/13.1/release_notes/pf_release_notes.html#identity-assertion-jwt-authorization-grant-id-jag) - Issuer. Native ID-JAG minting, from the 13.1 release notes.
+- [PingFederate JWT grant mapping](https://docs.pingidentity.com/pingfederate/13.1/administrators_reference_guide/help_idpconnectionconfigtasklet_oauthsamlgrantattributemappingstate.html) - Validator. Mapping an inbound assertion to a local identity.
+- [Keycloak: issuing ID-JAGs](https://github.com/keycloak/keycloak/issues/48818) - Issuer. Upstream tracking issue.
+- [Auth0](https://auth0.com/docs/secure/call-apis-on-users-behalf/xaa) - Validator, in early access. Auth0 is the resource app's authorization server; the enterprise IdP stays external.
+- [Stytch](https://stytch.com/docs/connected-apps/guides/cross-app-access) - Validator. Exchanges an external workforce IdP's ID-JAG for a Stytch Connected Apps access token, with no browser redirect.
+- [Scalekit](https://www.scalekit.com/blog/cross-app-access-agentic-auth-flows) - Validator. Agentic auth flows built on ID-JAG.
+- [Authplane](https://docs.authplane.ai/guides/xaa/) - Validator. Checks the assertion against the IdP's JWKS and mints an MCP token for policy-approved agent, scope, and resource combinations.
+- [Keycloak: accepting ID-JAGs](https://github.com/keycloak/keycloak/issues/43971) - Validator. Upstream tracking issue.
 
 ## Resource apps and MCP servers
 
@@ -106,7 +110,7 @@ Applications that let an enterprise IdP govern access to their API or MCP server
 
 ## Libraries
 
-- [doorkeeper-id_jag_grant](https://github.com/doorkeeper-gem/doorkeeper-id_jag_grant) - ID-JAG grant extension for Doorkeeper, the Ruby OAuth provider.
+- [doorkeeper-id_jag_grant](https://github.com/doorkeeper-gem/doorkeeper-id_jag_grant) - Validator side for Doorkeeper, the Ruby OAuth provider.
 - [hmwildermuth/id-jag](https://github.com/hmwildermuth/id-jag) - TypeScript implementation of the ID-JAG specification.
 - [mcpg-plugin-credential-oauth-id-jag](https://github.com/mcpg-dev/mcpg-plugin-credential-oauth-id-jag) - ID-JAG credential issuer plugin for the MCPG gateway.
 - [atko-cross-app-access-sdk](https://github.com/indranilokg/atko-cross-app-access-sdk) - Community SDK for the Okta XAA flow.
@@ -140,7 +144,6 @@ Applications that let an enterprise IdP govern access to their API or MCP server
 - [Client registration and enterprise management in the MCP authorization spec](https://aaronparecki.com/2025/11/25/1/mcp-authorization-spec-update) - How EMA landed in MCP.
 - [Diving into the MCP authorization specification](https://www.descope.com/blog/post/mcp-auth-spec) - Broader tour of MCP auth with EMA in context.
 - [XAA: the enterprise way to govern AI app integrations](https://workos.com/blog/id-jag-cross-app-access) - Vendor-neutral framing of the admin story.
-- [Cross-App Access: secure app-to-app trust with an IdP](https://www.scalekit.com/blog/cross-app-access-agentic-auth-flows) - Agentic auth flows built on ID-JAG.
 - [Cross-App Access for AI agents, and where Keycloak stands](https://skycloak.io/blog/cross-app-access-id-jag-ai-agents-keycloak/) - Open-source IdP perspective on adoption.
 - [ID-JAG deep dive](https://dev.to/kanywst/id-jag-deep-dive-1mhp) - Community walkthrough of the token structure and claims.
 - [ID-JAG notes by Karl McGuinness](https://notes.karlmcguinness.com/tags/id-jag/) - Running notes from one of the spec's authors.
