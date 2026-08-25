@@ -95,6 +95,7 @@ The other half: a validator is the resource app's authorization server, verifyin
 - [Descope](https://docs.descope.com/agentic-identity-hub/enterprise-managed-authorization/validate-id-jags) - Validates a customer's IdP assertion at the MCP server you sell, so each customer governs access with their own Okta, Entra, or Descope.
 - [Auth0](https://auth0.com/docs/secure/call-apis-on-users-behalf/xaa) - Resource-app side of XAA, in early access. The enterprise IdP stays external.
 - [Stytch](https://stytch.com/docs/connected-apps/guides/cross-app-access) - Exchanges an external workforce IdP's ID-JAG for a Stytch Connected Apps access token, with no browser redirect.
+- [WorkOS](https://workos.com/docs/authkit/mcp) - Early access, enabled per environment. AuthKit accepts the assertion and returns a token scoped to your MCP server, with no ID-JAG code in the server itself.
 - [Scalekit](https://www.scalekit.com/blog/cross-app-access-agentic-auth-flows) - Agentic auth flows built on ID-JAG.
 - [Authplane](https://docs.authplane.ai/guides/xaa/) - Checks the assertion against the IdP's JWKS and mints an MCP token for policy-approved agent, scope, and resource combinations.
 - [PingFederate JWT grant mapping](https://docs.pingidentity.com/pingfederate/13.1/administrators_reference_guide/help_idpconnectionconfigtasklet_oauthsamlgrantattributemappingstate.html) - Mapping an inbound assertion to a local identity.
