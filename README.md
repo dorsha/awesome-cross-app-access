@@ -58,6 +58,7 @@ sequenceDiagram
 - [Identity Assertion JWT Authorization Grant](https://datatracker.ietf.org/doc/draft-ietf-oauth-identity-assertion-authz-grant/) - The core IETF OAuth Working Group draft. Start here.
 - [Latest rendered draft](https://www.ietf.org/archive/id/draft-ietf-oauth-identity-assertion-authz-grant-04.html) - HTML rendering of the most recent revision.
 - [Original individual draft](https://datatracker.ietf.org/doc/draft-parecki-oauth-identity-assertion-authz-grant/) - Pre-adoption history, useful for tracing design decisions.
+- [Verifiable Presentation Profile for ID-JAG](https://github.com/aaronpk/draft-parecki-oauth-id-jag-vp) - Individual draft in progress from one of the ID-JAG authors, not yet posted to the datatracker. The repo is the working area.
 - [Cross-App Access on oauth.net](https://oauth.net/cross-app-access/) - Canonical overview page, maintained alongside the spec.
 
 ## Related standards
@@ -122,13 +123,16 @@ Applications that let an enterprise IdP govern access to their API or MCP server
 - [hmwildermuth/id-jag](https://github.com/hmwildermuth/id-jag) - TypeScript implementation of the ID-JAG specification.
 - [mcpg-plugin-credential-oauth-id-jag](https://github.com/mcpg-dev/mcpg-plugin-credential-oauth-id-jag) - ID-JAG credential issuer plugin for the MCPG gateway.
 - [atko-cross-app-access-sdk](https://github.com/indranilokg/atko-cross-app-access-sdk) - Community SDK for the Okta XAA flow.
+- [Authplane authserver](https://github.com/AuthPlane/authserver) - Self-hosted MCP authorization server in a single Go binary, AGPL-3.0.
 
 ## Sample apps and demos
 
 - [okta-cross-app-access-mcp](https://github.com/oktadev/okta-cross-app-access-mcp) - Reference agent and todo app showing an end-to-end XAA flow over MCP.
 - [okta-js-xaa-requestor-example](https://github.com/oktadev/okta-js-xaa-requestor-example) - Minimal NestJS requesting app.
 - [auth0-cross-app-access-inspector](https://github.com/auth0-samples/auth0-cross-app-access-inspector) - Node and React requesting app that shows every token in the flow.
-- [id-jag-the-hard-way](https://github.com/athenz-community/id-jag-the-hard-way) - Containerized, script-free walkthrough of the tokens, policies, and trust boundaries from first principles.
+- [id-jag-the-hard-way](https://github.com/mlajkim/id-jag-the-hard-way) - Containerized, script-free walkthrough of the tokens, policies, and trust boundaries from first principles.
+- [app-service-ema-mcp](https://github.com/seligj95/app-service-ema-mcp) - Microsoft Entra and Azure App Service, separating what Entra governs today from what the EMA extension adds.
+- [mcp-enterprise-managed-auth](https://github.com/starman69/mcp-enterprise-managed-auth) - Proof of concept for the EMA extension and SEP-990, IdP-driven access control over token exchange.
 - [okta-cross-app-access-demo](https://github.com/indranilokg/okta-cross-app-access-demo) - Compact demo of ID-JAG tokens with MCP.
 - [xaa-agent-demo](https://github.com/truefoundry/xaa-agent-demo) - A2A ReAct agent forwarding user identity through an MCP gateway.
 - [xaa-playground](https://github.com/dancinnamon-okta/xaa-playground) - Playground application for learning the protocol.
