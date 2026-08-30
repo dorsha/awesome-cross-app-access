@@ -140,6 +140,7 @@ Applications that let an enterprise IdP govern access to their API or MCP server
 
 ## Sandboxes and debugging tools
 
+- [XAA Guru](https://www.crossapp.guru) - Walks the flow one hop at a time against your own IdP and MCP server, showing the exact request each step sends. Works with any ID-JAG issuer, such as Okta, Ping, or Descope. Built by Descope.
 - [xaa.dev](https://xaa.dev/) - Free hosted sandbox for exploring and debugging XAA flows with no setup.
 - [client.xaa.rocks](https://client.xaa.rocks) - Test requesting app you can point at your own IdP.
 - [motd.xaa.rocks](https://motd.xaa.rocks) - Test resource app and API for validating your ID-JAG issuance.
