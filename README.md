@@ -78,6 +78,8 @@ sequenceDiagram
 - [Authorize MCP connectors for your organization](https://support.claude.com/en/articles/15537633-authorize-mcp-connectors-for-your-entire-organization) - Admin-facing setup guide for Claude.
 - [VS Code enterprise-managed MCP authentication](https://code.visualstudio.com/updates/v1_123#_enterprise-managed-mcp-authentication-preview) - EMA support in the VS Code MCP client.
 - [agentgateway Cross-App Access](https://agentgateway.dev/docs/kubernetes/main/security/backend-authn-cross-app-access/) - ID-JAG as a backend authentication method in an agent gateway.
+- [MintMCP Cross App Access](https://www.mintmcp.com/docs/cross-app-access) - Gateway that requests an ID-JAG from your Okta org per user, then exchanges it at each MCP server's authorization server. Enterprise plans, enabled on request.
+- [LiteLLM v1.95.0](https://docs.litellm.ai/release_notes/v1.95.0/v1-95-0) - Stores the enterprise IdP identity assertion at SSO login for EMA egress, the first EMA groundwork in its MCP gateway.
 
 ## Issuers
 
@@ -119,6 +121,7 @@ Applications that let an enterprise IdP govern access to their API or MCP server
 
 ## Libraries
 
+- [go-oauth2](https://github.com/go-oauth2/oauth2) - The widely used Go OAuth 2 server library. v4.6.0 added the ID-JAG JWT bearer grant.
 - [doorkeeper-id_jag_grant](https://github.com/doorkeeper-gem/doorkeeper-id_jag_grant) - Validator side for Doorkeeper, the Ruby OAuth provider.
 - [hmwildermuth/id-jag](https://github.com/hmwildermuth/id-jag) - TypeScript implementation of the ID-JAG specification.
 - [mcpg-plugin-credential-oauth-id-jag](https://github.com/mcpg-dev/mcpg-plugin-credential-oauth-id-jag) - ID-JAG credential issuer plugin for the MCPG gateway.
@@ -161,6 +164,7 @@ Applications that let an enterprise IdP govern access to their API or MCP server
 - [ID-JAG deep dive](https://dev.to/kanywst/id-jag-deep-dive-1mhp) - Community walkthrough of the token structure and claims.
 - [ID-JAG notes by Karl McGuinness](https://notes.karlmcguinness.com/tags/id-jag/) - Running notes from one of the spec's authors.
 - [The Cross App Access protocol makes AI agents enterprise-ready](https://thenewstack.io/the-cross-app-access-protocol-makes-ai-agents-enterprise-ready/) - Industry analysis of why the pattern caught on.
+- [Descope unveils Cross-App Access support](https://www.descope.com/press-release/cross-app-access-xaa-support) - Announcement covering per-tenant trusted issuers and admin-configurable XAA.
 
 ## Talks and podcasts
 
